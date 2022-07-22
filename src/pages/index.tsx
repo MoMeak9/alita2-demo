@@ -1,13 +1,31 @@
-import { query } from '@/services/api';
-import { useRequest } from 'alita';
-import React, { FC } from 'react';
-import styles from './index.less';
+import type {FC} from 'react';
+import React from 'react';
+import {connect} from 'alita';
+import {Button} from "antd-mobile";
 
-interface LifePageProps {}
+interface LifePageProps {
+    global: {
+        name: string;
+        counter: number;
+    };
+}
 
-const HomePage: FC<LifePageProps> = () => {
-  const { data } = useRequest(query);
-  return <div className={styles.center}>Hello {data?.text}</div>;
+const HomePage: FC<LifePageProps> = ({global, dispatch}) => {
+    const {name, counter} = global;
+
+    const handleClick = () => {
+        dispatch({type: 'global/add', playload: {counter}});
+    }
+
+    return (
+        <div>
+            {name}
+            <div>
+                {counter}
+            </div>
+            <Button onClick={handleClick}>计数器</Button>
+        </div>
+    )
 };
 
-export default HomePage;
+export default connect(({global}: LifePageProps) => ({global}))(HomePage);
