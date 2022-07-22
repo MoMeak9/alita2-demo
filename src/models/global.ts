@@ -1,5 +1,3 @@
-import {log} from "util";
-
 const GlobalModel = {
     namespace: 'global',
 
