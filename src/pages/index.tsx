@@ -7,6 +7,7 @@ interface LifePageProps {
     global: {
         name: string;
         counter: number;
+        list: number[];
     };
 }
 
@@ -24,6 +25,11 @@ const HomePage: FC<LifePageProps> = ({global, dispatch}) => {
                 {counter}
             </div>
             <Button onClick={handleClick}>计数器</Button>
+            {
+                global.list.map((item, index) => {
+                    return <div key={item}>{item}</div>
+                })
+            }
         </div>
     )
 };
